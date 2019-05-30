@@ -42,8 +42,43 @@ export class TodoService implements OnInit {
     this.saveTodos();
 
   }
-  updateTodoComplete(id: number, todo:Todo) {
-console.log(todo.name);
+  getEtat(etat: number) {
+    //0 pas de reponse 1 en cours 2 accepter  // 3 refuser
+    switch (etat) {
+      case 0:
+        return "Pas de Reponse";
+      case 1:
+        return "En cours";
+      case 2:
+        return "Accepter"
+      case 3:
+        return "Refuser"
+    }
+  }
+  changeState(state: number, idTodo: number) {
+    console.log(state);
+    for (let i = 0; i < this.todos.length; i++) {
+      if (idTodo === this.todos[i].id) {
+        switch (state) {
+          case 0:
+
+            this.updateTodo(i, 1);
+            break;
+          case 1:
+            this.updateTodo(i, 2);
+            break;
+          case 2:
+            this.updateTodo(i, 3);
+            break;
+          case 3:
+            this.updateTodo(i, 0);
+            break;
+        }
+      }
+    }
+  }
+  updateTodoComplete(id: number, todo: Todo) {
+    console.log(todo.name);
     this.todos[id].name = todo.name;
     this.todos[id].descriptionE = todo.descriptionE;
     this.todos[id].competence = todo.competence;
@@ -54,11 +89,15 @@ console.log(todo.name);
 
   }
 
-  dropTodo(i: number) {
-    this.todos.splice(i, 1);
-    this.saveTodos();
-    this.emitTodo();
-
+  dropTodo(idTodo: number) {
+    for (let i = 0; i < this.todos.length; i++) {
+      if (this.todos[i].id == idTodo) {
+        this.todos.splice(i, 1);
+        this.saveTodos();
+        this.emitTodo();
+        break;
+      }
+    }
   }
 
   getTodos() {

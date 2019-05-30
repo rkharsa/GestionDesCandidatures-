@@ -10,6 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { TodoService } from './services/todo.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FiltrerPipe } from './pipe/filtrer.pipe';
+import { CardComponent } from './list/card/card.component';
+import { AddCandidatureFormComponent } from './list/add-candidature-form/add-candidature-form.component';
+
 const route:Routes=[
 {path:'list',component:ListComponent},
 {path:'',component:ListComponent}
@@ -18,7 +21,9 @@ const route:Routes=[
   declarations: [
     AppComponent,
     ListComponent,
-    FiltrerPipe
+    FiltrerPipe,
+    CardComponent,
+    AddCandidatureFormComponent
   ],
   imports: [
     ReactiveFormsModule,

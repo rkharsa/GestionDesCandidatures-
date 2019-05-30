@@ -1,0 +1,19 @@
+
+<div class="card-body">
+  <h5 class="card-title">{{name}}
+    <div (click)="deleteCandidature()" class="float-right">
+      <i class="material-icons">
+        delete
+      </i>
+    </div>
+  </h5>
+  <h6 class="card-subtitle mb-2 text-muted">{{societe}}</h6>
+  <p class="card-text  text-truncate" style="max-width: 500px;max-height: 500px;">{{descriptionE}}</p>
+  <a class="card-link" href="{{link}}" routerLinkActive="router-link-active">Card link</a>
+
+  <div class="float-right" (click)="changeState()"><i class="material-icons "
+      [ngClass]="{'accepter': done==2,'refuser':done==3,'enCours':done==1,'pasReponse':done==0}">
+      lens
+    </i></div>
+</div>
+

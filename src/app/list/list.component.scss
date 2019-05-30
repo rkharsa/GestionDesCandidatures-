@@ -20,18 +20,14 @@
   width: 50%;
   display: inline-block;
 }
-
-
-.accepter {
-  color: rgb(48, 184, 80);
+.effect{
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-timing-function: ease; /* Transition de type ease */
+}
+.effect:hover{
+  transform: translatex(-5px); /* On déplace l'objet */
 }
 
-.refuser {
-  color: rgb(241, 93, 108);
-}
-.enCours{
-  color: rgb(226, 150, 7);
-}
-.pasReponse {
-  color: rgb(92, 107, 107);
-}
+
+
