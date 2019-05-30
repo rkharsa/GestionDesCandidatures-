@@ -1,0 +1,176 @@
+<div class="row justify-content-center">
+  <form [formGroup]="formGroupSearch" class="col-md-6 ">
+    <input formControlName="search" class="form-control" type="search" placeholder="Recherche par Titre">
+
+  </form>
+</div>
+
+<form (ngSubmit)="modifLigneSave(G)" #G="ngForm">
+      <div class="row justify-content-center">
+<div
+ [ngClass]="{'d-flex' : premierClick===false,
+ 'flex-wrap' : premierClick===false,
+ 'justify-content-center' : premierClick===false,
+ 'col-md-4 ':premierClick===true}">
+        <div class="card  mt-2 shadow-sm"
+        [ngClass]="{'col-md-4' : premierClick===false,
+        'mr-2 ' : premierClick===false,
+        'ml-2 ' : true,
+ 'col-md-12' : premierClick===true
+}"
+          *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"   >
+
+          <div class="card-body">
+            <h5 class="card-title">{{todo.name}}
+               <div (click)="deleteL(todo.id)" class="float-right">
+                <i class="material-icons" >
+                  delete
+                  </i>
+              </div> </h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{todo.societe}}</h6>
+            <p class="card-text  text-truncate" style="max-width: 500px;max-height: 500px;">{{todo.descriptionE}}</p>
+            <a class="card-link" href="{{todo.link}}" routerLinkActive="router-link-active">Card link</a>
+
+            <div class="float-right" (click)="changeState(todo.done,todo.id)"><i class="material-icons "
+                [ngClass]="{'accepter': todo.done==2,'refuser':todo.done==3,'enCours':todo.done==1,'pasReponse':todo.done==0}">
+                lens
+              </i></div>
+          </div>
+        </div>
+ </div>
+
+<div *ngIf="premierClick" class="col-md-8  mt-2  ">
+    <form (ngSubmit)="modificationSubmit(G,data().id)" #G="ngForm" class="col-md-12 ">
+        <div class="card col-md-12  shadow-lg">
+          <div class="card-body">
+            <div class="float-right">
+              <div (click)="fermerInfo()"class="material-icons"  >close</div><br>
+              <div (click)="modificationClick()"class="material-icons"  *ngIf="modification==false">edit</div>
+              <div (click)="modificationClick()"class="material-icons" *ngIf="modification==true">check</div>
+              <div (click)="deleteL(data().id)">
+                <i class="material-icons" >
+                  delete
+                  </i>
+              </div>
+            </div>
+            <h5 class="card-title">
+              <div *ngIf="modification==true"><input name="name" class="form-control " placeholder="L'annonce"
+                  ngModel="{{data().name}}"></div>
+              <div *ngIf="modification==false">{{data().name}}</div>
+            </h5>
+
+            <h6 class="card-subtitle mb-2 text-muted">
+              <div *ngIf="modification==true"><input name="societe" class="form-control" placeholder="Société"
+                  ngModel="{{data().societe}}"></div>
+              <div *ngIf="modification==false">{{data().societe}} / <i (click)="changeState(data().done,data().id)" class="material-icons "
+              [ngClass]="{'accepter': data().done==2,'refuser':data().done==3,'enCours':data().done==1,'pasReponse':data().done==0,'mr-2':true}" >
+              lens
+            </i>{{getEtat(data().done)}}  </div>
+
+
+
+            </h6>
+
+            <div class="card-text">
+
+              <br>
+               <hr>
+              <h6 class="card-title">Présentation</h6>
+              <div *ngIf="modification==true">
+                <textarea name="description" placeholder="Description" class="form-control"
+                  ngModel="{{data().descriptionE}}"  rows="10" cols="50"> </textarea>
+              </div>
+              <div *ngIf="modification==false" class="nl2br">
+                {{data().descriptionE}}
+              </div>
+            </div>
+
+            <div class="card-text">
+                <br>
+                <hr>
+              <h6 class="card-title">Compétence</h6>
+              <div *ngIf="modification==true">
+                <textarea name="competence" placeholder="Compétence" class="form-control"
+                  ngModel="{{data().competence}}"  rows="10" cols="50"> </textarea>
+              </div>
+              <div *ngIf="modification==false" class="nl2br">
+                {{data().competence}}
+              </div>
+            </div>
+            <div class="card-text">
+              <br>
+              <hr>
+                <h6 class="card-title">Tache</h6>
+              <div *ngIf="modification==true">
+                <textarea name="tache" placeholder="Tache" class="form-control"
+                  ngModel="{{data().tache}}"  rows="10" cols="50"> </textarea>
+              </div>
+              <div *ngIf="modification==false" class="nl2br">
+                {{data().tache}}
+              </div>
+            </div>
+            <br>
+            <br>
+            <a class="card-link mt-3" href="{{data().link}}" routerLinkActive="router-link-active">Card link</a>
+     <button *ngIf="modification==true" class="btn btn-block btn-primary" type="submit">Mettre à jour</button>
+          </div>
+        </div>
+
+      </form>
+</div>
+
+      </div>
+</form>
+
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="row justify-content-center">
+    <div class="card col-md-4 mt-2 mr-2" *ngFor="let unChiffre of  tabCompteurInput;let i= index">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-5">
+            <h5 class="card-title"> <input type="text" class="form-control  " name="{{unChiffre}}name"
+                placeholder="Post à Pourvoir" ngModel></h5>
+          </div>
+          <div class="col-md-7"><input type="text" class="form-control " name="{{unChiffre}}link" placeholder="Liens"
+              ngModel></div>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted"> <input type="text" class="form-control col-md-6"
+            name="{{unChiffre}}societe" placeholder="Société" ngModel> </h6>
+        <p class="card-text"><textarea class="form-control " name="{{unChiffre}}description" placeholder="Déscription"
+            ngModel></textarea></p>
+            <p class="card-text"><textarea class="form-control " name="{{unChiffre}}competence" placeholder="Competence"
+              ngModel></textarea></p>
+              <p class="card-text"><textarea class="form-control " name="{{unChiffre}}tache" placeholder="Tache"
+                ngModel></textarea></p>
+        <div class="row ">
+          <div class="col-md-5"><input type="text" class="form-control  " name="{{unChiffre}}tel"
+              placeholder="Téléphone" ngModel></div>
+          <div class="col-md-7"><input type="text" class="form-control " name="{{unChiffre}}email" placeholder="Email"
+              ngModel></div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12"><input type="number" class="form-control" name="{{unChiffre}}priority"
+              placeholder="priority" ngModel>
+          </div>
+        </div>
+        <button class="btn btn-danger card-link btn-block mt-3" style="height: 38px;" type="button"
+          (click)="suppligne(i)">
+          <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3 mb-3">
+    <button class="btn btn-danger mr-2" type="submit" *ngIf="tabCompteurInput.length !==0">
+      Sauvegarder
+    </button>
+
+    <button class="btn btn-success" type="button" (click)="add()">
+      Ajouter
+    </button>
+  </div>
+  <div>
+  </div>
+</form>
+
+
