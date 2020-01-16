@@ -21,7 +21,14 @@ export class ListComponent implements OnInit {
   todosSubscription: Subscription;
   modification: boolean = false;
   constructor(private todoService: TodoService, private formBuilder: FormBuilder) {
-
+    this.premierClick = false;
+    this.initForm();
+    this.todoService.getTodos();
+    this.todosSubscription = this.todoService.todoSubject.subscribe(
+      (data: Todo[]) => {
+        this.todos = data;
+      }
+    );
   }
   getPremierClick() {
     return this.premierClick;

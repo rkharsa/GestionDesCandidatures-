@@ -15,6 +15,7 @@ import { AddCandidatureFormComponent } from './list/add-candidature-form/add-can
 
 const route:Routes=[
 {path:'list',component:ListComponent},
+  {path:'add',component:AddCandidatureFormComponent},
 {path:'',component:ListComponent}
 ];
 @NgModule({

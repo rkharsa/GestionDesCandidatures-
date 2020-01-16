@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { Todo } from '../../models/todo.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-candidature-form',
@@ -12,9 +13,10 @@ export class AddCandidatureFormComponent implements OnInit {
   taille: number = 0;
   tabCompteurInput: number[] = new Array();
   myDate = new Date();
-  constructor(private todoService: TodoService, private formBuilder: FormBuilder) { }
+  constructor(private todoService: TodoService, private formBuilder: FormBuilder,private router: Router) { }
 
   ngOnInit() {
+    this.add();
   }
   onSubmit(form: NgForm) {
     var todo: Todo;
@@ -37,6 +39,9 @@ export class AddCandidatureFormComponent implements OnInit {
 
     this.tabCompteurInput.push(this.taille);
     this.taille += 1;
+  }
+  list(){
+    this.router.navigate(['list']);
   }
   suppligne(i: number) {
     this.tabCompteurInput.splice(i, 1);
