@@ -20,6 +20,7 @@ export class ListComponent implements OnInit {
   todos: Todo[];
   todosSubscription: Subscription;
   modification: boolean = false;
+  showSpinner:boolean=true;
   constructor(private todoService: TodoService, private formBuilder: FormBuilder) {
     this.premierClick = false;
     this.initForm();
@@ -27,6 +28,18 @@ export class ListComponent implements OnInit {
     this.todosSubscription = this.todoService.todoSubject.subscribe(
       (data: Todo[]) => {
         this.todos = data;
+        this.showSpinner=false;
+      }
+    );
+  }
+  ngOnInit() {
+    this.premierClick = false;
+    this.initForm();
+    this.todoService.getTodos();
+    this.todosSubscription = this.todoService.todoSubject.subscribe(
+      (data: Todo[]) => {
+        this.todos = data;
+        this.showSpinner=false;
       }
     );
   }
@@ -87,15 +100,6 @@ export class ListComponent implements OnInit {
     this.premierClick = false;
     this.todoService.dropTodo(id);
   }
-  ngOnInit() {
-    this.premierClick = false;
-    this.initForm();
-    this.todoService.getTodos();
-    this.todosSubscription = this.todoService.todoSubject.subscribe(
-      (data: Todo[]) => {
-        this.todos = data;
-      }
-    );
-  }
+
 
 }

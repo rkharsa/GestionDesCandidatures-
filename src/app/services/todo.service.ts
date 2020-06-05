@@ -12,24 +12,18 @@ export class TodoService implements OnInit {
 
   todos: Todo[] = [];
   todoSubject = new Subject<Todo[]>();
+  user: firebase.User;
+
 
   constructor() {
-
-
   }
-  ngOnInit() {
-    this.getTodos();
-
-  }
+  ngOnInit() { }
   emitTodo() {
     this.todoSubject.next(this.todos);
   }
 
 
   addTodo(todo: Todo) {
-
-    console.log("add");
-    console.log(todo);
     this.todos.push(todo);
     this.emitTodo();
     this.saveTodos();
@@ -59,31 +53,17 @@ export class TodoService implements OnInit {
     console.log(state);
     for (let i = 0; i < this.todos.length; i++) {
       if (idTodo === this.todos[i].id) {
-        switch (state) {
-          case 0:
-
-            this.updateTodo(i, 1);
-            break;
-          case 1:
-            this.updateTodo(i, 2);
-            break;
-          case 2:
-            this.updateTodo(i, 3);
-            break;
-          case 3:
-            this.updateTodo(i, 0);
-            break;
+        if (state <= 3) {
+          state += 1;
+        } else {
+          state = 0;
         }
+        this.updateTodo(i, state);
       }
     }
   }
   updateTodoComplete(id: number, todo: Todo) {
-    console.log(todo.name);
-    this.todos[id].name = todo.name;
-    this.todos[id].descriptionE = todo.descriptionE;
-    this.todos[id].competence = todo.competence;
-    this.todos[id].societe = todo.societe;
-    this.todos[id].tache = todo.tache;
+    this.todos[id] = todo;
     this.emitTodo();
     this.saveTodos();
 
@@ -91,7 +71,7 @@ export class TodoService implements OnInit {
 
   dropTodo(idTodo: number) {
     for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].id == idTodo) {
+      if (this.todos[i].id === idTodo) {
         this.todos.splice(i, 1);
         this.saveTodos();
         this.emitTodo();
@@ -101,10 +81,9 @@ export class TodoService implements OnInit {
   }
 
   getTodos() {
-
-    firebase.database().ref("/Users/1/taches").orderByChild('priority').on('value', (data: DataSnapshot) => {
+    this.user = firebase.auth().currentUser;
+    firebase.database().ref(`/Users/${this.user.uid}/taches`).orderByChild('priority').on('value', (data: DataSnapshot) => {
       this.todos = data.val() ? data.val() : [];
-
       this.emitTodo();
     }
     );
@@ -113,9 +92,10 @@ export class TodoService implements OnInit {
 
 
   saveTodos() {
+    this.user = firebase.auth().currentUser;
     firebase
       .database()
-      .ref('/Users/1/taches')
+      .ref(`/Users/${this.user.uid}/taches`)
       .set(this.todos);
   }
 }
