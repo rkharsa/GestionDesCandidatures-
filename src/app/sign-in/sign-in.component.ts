@@ -29,7 +29,6 @@ export class SignInComponent implements OnInit {
     });
   }
   private signInSubmit(){
-    console.log(this.passwordCtrl.value);
     this.authService.signInUser(this.emailCtrl.value,this.passwordCtrl.value).then(
       ()=>{
         this.router.navigate(["/list"]);

@@ -1,45 +1,60 @@
 <div class="row justify-content-center mt-2">
-  <div class="searchBack bg-light border col-md-6 shadow-sm d-inline">
+  <div class="searchBack bg-light border col-md-7 shadow-sm d-inline">
     <form [formGroup]="formGroupSearch" class="col-md-12  form-inline">
-      <input formControlName="search" class="form-control col-md-11" type="search" placeholder="Recherche par Titre">
+      <a class="material-icons mr-3 text-primary" (click)="changeMapState()" style="cursor: pointer;">map</a>
+      <input formControlName="search" class="form-control col-md-10" type="search" placeholder="Recherche par Titre">
       <a routerLink="/add" class="material-icons ml-3">add</a>
     </form>
 
   </div>
 </div>
-
+<agm-map *ngIf="mapActivate" [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-4 float-left mt-2" >
+  <div *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let index=i">
+    <agm-marker  [label]="index"  [latitude]="todo.address.lat" [longitude]="todo.address.lng">
+        <agm-info-window [disableAutoPan]="true">
+            {{todo.name}}<br />
+            <a style="cursor:pointer;" >Voir la candidature</a>
+        </agm-info-window>
+    </agm-marker>
+</div>
+</agm-map>
 <div class="row justify-content-md-center ">
-  <div [ngClass]="{'d-flex' : premierClick===false,
- 'flex-wrap' : premierClick===false,
+  <div [ngClass]="{'d-flex' : premierClick===false ,
+ 'flex-wrap' : premierClick===false ,
  'justify-content-center' : premierClick===false,
- 'col-md-4 ':premierClick===true,
+ 'col-md-4 ':premierClick===true ,
+ 'col-md-12 ':mapActivate,
 'col-12':true}">
 
     <!--Si on veut en mettre 3 sur la mm ligne sans centrer il faudra mettre col-md-12 dans app card-->
-    <app-card class="card  mt-2 shadow-sm " [ngClass]="{'col-md-4' : premierClick===false,
-     'mr-md-2 ' : premierClick===false,
-     'ml-md-2 ' : true,
-     'col-md-12' : premierClick===true
-     }" *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"
-      [id]="todo.id" [name]="todo.name" [societe]="todo.societe" [descriptionE]="todo.descriptionE"
-      [competence]="todo.competence" [tache]="todo.tache" [priority]="todo.priority" [email]="todo.email"
-      [link]="todo.link" [tel]="todo.tel" [response]="todo.response" [date_created]="todo.date_created"
-      [done]="todo.done" [indice]="i"></app-card>
+    <ng-template [ngIf]="(mapActivate && !premierClick) || (!premierClick|| premierClick && !mapActivate) "  >
+      <app-card class="card  mt-2 shadow-sm " [ngClass]="{'col-md-4' : premierClick===false ,
+      'mr-md-2 ' : premierClick===false  ,
+      'ml-md-2 ' : true,
+      'col-md-12' : premierClick===true || mapActivate
+      }" *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"
+       [id]="todo.id" [name]="todo.name" [societe]="todo.societe" [descriptionE]="todo.descriptionE"
+       [competence]="todo.competence" [tache]="todo.tache" [priority]="todo.priority" [email]="todo.email"
+       [link]="todo.link" [tel]="todo.tel" [response]="todo.response" [date_created]="todo.date_created"
+       [done]="todo.done" [indice]="i"></app-card>
+    </ng-template>
+
+
   </div>
   <div *ngIf="showSpinner">
     <div class="row">
       <img src="../../assets/pictures/spinner.gif">
     </div>
   </div>
-  <div *ngIf="premierClick" class="col-md-8  mt-2  ">
+  <div *ngIf="premierClick" class="col-md-8  mt-2  " [ngClass]="{'col-md-8': premierClick &&!mapActivate,'col-md-12': premierClick && mapActivate,'mt-2': true}">
     <form (ngSubmit)="modificationSubmit(G,data().id)" #G="ngForm" class="col-md-12 ">
       <div class="card col-md-12  shadow-lg">
         <div class="card-body">
           <div class="float-right">
-            <div (click)="fermerInfo()" class="material-icons">close</div><br>
-            <div (click)="modificationClick()" class="material-icons" *ngIf="modification==false">edit</div>
-            <div (click)="modificationClick()" class="material-icons" *ngIf="modification==true">check</div>
-            <div (click)="deleteL(data().id)">
+            <div (click)="fermerInfo()" class="material-icons" style="cursor: pointer;">close</div><br>
+            <div (click)="modificationClick()" class="material-icons pointer" *ngIf="modification==false" style="cursor: pointer;">edit</div>
+            <div (click)="modificationClick()" class="material-icons" *ngIf="modification==true" style="cursor: pointer;">check</div>
+            <div (click)="deleteL(data().id)" style="cursor: pointer;">
               <i class="material-icons">
                 delete
               </i>

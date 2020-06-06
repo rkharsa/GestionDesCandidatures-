@@ -30,7 +30,6 @@ export class SignUpComponent implements OnInit {
     });
   }
   private signUpSubmit(){
-    console.log(this.passwordCtrl.value);
     this.authService.createNewUser(this.emailCtrl.value,this.passwordCtrl.value).then(
       ()=>{
         this.router.navigate(["/list"]);

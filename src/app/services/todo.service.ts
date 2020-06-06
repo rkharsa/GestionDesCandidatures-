@@ -50,15 +50,15 @@ export class TodoService implements OnInit {
     }
   }
   changeState(state: number, idTodo: number) {
-    console.log(state);
     for (let i = 0; i < this.todos.length; i++) {
       if (idTodo === this.todos[i].id) {
-        if (state <= 3) {
+        if (state < 3) {
           state += 1;
         } else {
           state = 0;
         }
         this.updateTodo(i, state);
+        break;
       }
     }
   }

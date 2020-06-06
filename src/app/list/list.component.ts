@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription} from 'rxjs';
 import { Todo } from '../models/todo.model';
 import { TodoService } from '../services/todo.service';
 import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
-
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +12,7 @@ import { FormGroup, FormBuilder, NgForm } from '@angular/forms';
 
 })
 export class ListComponent implements OnInit {
-
+  @ViewChild('search') searchElementRef: ElementRef;
   compteurTodo: number;
   premierClick: boolean;
   id: number;
@@ -21,6 +21,8 @@ export class ListComponent implements OnInit {
   todosSubscription: Subscription;
   modification: boolean = false;
   showSpinner:boolean=true;
+  mapActivate:boolean=true;
+
   constructor(private todoService: TodoService, private formBuilder: FormBuilder) {
     this.premierClick = false;
     this.initForm();
@@ -32,6 +34,9 @@ export class ListComponent implements OnInit {
       }
     );
   }
+changeMapState(){
+  this.mapActivate=!this.mapActivate;
+}
   ngOnInit() {
     this.premierClick = false;
     this.initForm();
@@ -42,7 +47,13 @@ export class ListComponent implements OnInit {
         this.showSpinner=false;
       }
     );
+
   }
+
+
+
+
+
   getPremierClick() {
     return this.premierClick;
   }
@@ -64,7 +75,8 @@ export class ListComponent implements OnInit {
 
   public modificationSubmit(form: NgForm, id: number) {
     for (let i = 0; i < this.todos.length; i++) {
-      if (this.todos[i].id == id) {
+
+      if (this.todos[i].id === id) {
         this.todos[i].name = form.value["name"];
         this.todos[i].descriptionE = form.value["description"];
         this.todos[i].societe = form.value["societe"];

@@ -16,7 +16,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthGardService } from './services/auth-gard.service';
 import { AuthService } from './services/auth.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
-
+import {AgmCoreModule} from '@agm/core';
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 const route: Routes = [
   { path: 'auth/signIn', component: SignInComponent },
   { path: 'auth/signUp', component:SignUpComponent },
@@ -45,7 +46,11 @@ const route: Routes = [
     MatIconModule,
     MatButtonModule,
     MatTableModule,
+    GooglePlaceModule,
     RouterModule.forRoot(route),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCtU_gREM0dlzPhS_9a41F2FmXBK09y7Z4'
+    }),
     HttpClientModule, MatSlideToggleModule
 
   ],
