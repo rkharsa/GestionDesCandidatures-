@@ -33,10 +33,7 @@
       'ml-md-2 ' : true,
       'col-md-12' : premierClick===true || mapActivate
       }" *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"
-       [id]="todo.id" [name]="todo.name" [societe]="todo.societe" [descriptionE]="todo.descriptionE"
-       [competence]="todo.competence" [tache]="todo.tache" [priority]="todo.priority" [email]="todo.email"
-       [link]="todo.link" [tel]="todo.tel" [response]="todo.response" [date_created]="todo.date_created"
-       [done]="todo.done" [indice]="i"></app-card>
+       [todo]="todo"></app-card>
     </ng-template>
 
 
@@ -71,7 +68,7 @@
                 ngModel="{{data().societe}}"></div>
             <div *ngIf="modification==false">{{data().societe}} / <i (click)="changeState(data().done,data().id)"
                 class="material-icons "
-                [ngClass]="{'accepter': data().done==2,'refuser':data().done==3,'enCours':data().done==1,'pasReponse':data().done==0,'mr-2':true}">
+                [ngClass]="{'accepter': data().done==2,'refuser':data().done==3,'enCours':data().done==1,'pasReponse':data().done==0,'mr-2':true}" style="cursor: pointer;">
                 lens
               </i>{{getEtat(data().done)}} </div>
 

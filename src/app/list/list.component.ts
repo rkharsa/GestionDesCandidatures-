@@ -49,11 +49,6 @@ changeMapState(){
     );
 
   }
-
-
-
-
-
   getPremierClick() {
     return this.premierClick;
   }
@@ -82,7 +77,7 @@ changeMapState(){
         this.todos[i].societe = form.value["societe"];
         this.todos[i].tache = form.value["tache"];
         this.todos[i].competence = form.value["competence"];
-        this.todoService.updateTodoComplete(id, this.todos[i]);
+        this.todoService.updateTodoComplete(i, this.todos[i]);
         // this.todos[i].tel=form.value["tel"];
         //this.todos[i].email=form.value["email"];
       }
