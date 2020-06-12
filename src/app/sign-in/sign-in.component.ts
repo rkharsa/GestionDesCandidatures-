@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit {
   }
 
 
-  private initSignInForm() {
+  public initSignInForm() {
     this.emailCtrl = this.fb.control('', [Validators.email, Validators.required]);
     this.passwordCtrl = this.fb.control('', Validators.required);
     this.signInForm = this.fb.group({
@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
       password: this.passwordCtrl
     });
   }
-  private signInSubmit(){
+  public signInSubmit(){
     this.authService.signInUser(this.emailCtrl.value,this.passwordCtrl.value).then(
       ()=>{
         this.router.navigate(["/list"]);

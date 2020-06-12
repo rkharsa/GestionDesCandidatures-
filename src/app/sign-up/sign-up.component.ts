@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
   }
 
 
-  private initSignUpForm() {
+  public initSignUpForm() {
     this.emailCtrl = this.fb.control('', [Validators.email, Validators.required]);
     this.passwordCtrl = this.fb.control('', Validators.required);
     this.signUpForm = this.fb.group({
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
       password: this.passwordCtrl
     });
   }
-  private signUpSubmit(){
+  public signUpSubmit(){
     this.authService.createNewUser(this.emailCtrl.value,this.passwordCtrl.value).then(
       ()=>{
         this.router.navigate(["/list"]);
