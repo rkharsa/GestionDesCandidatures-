@@ -11,5 +11,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',canActivate: [AuthGardService],component:ListComponent },
     { path: 'add',canActivate: [AuthGardService] , component:AddCandidatureFormComponent },
     { path: 'login',          component: SignInComponent },
-    { path: 'register',       component: RegisterComponent }
+    { path: 'register',       component: RegisterComponent },
+    { path: '/',       component: SignInComponent }
+
 ];
