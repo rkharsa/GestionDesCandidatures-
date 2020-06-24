@@ -1,0 +1,15 @@
+.truncate {
+  line-height: 20px;
+  max-height: 299px;
+  overflow: hidden;
+  display:inline-block;
+}
+.truncate-small-card {
+  line-height: 20px;
+  max-height: 100px;
+  overflow: hidden;
+  display:inline-block;
+}
+.truncate::after{
+  content: "...";
+}

@@ -1,0 +1,80 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8 ">
+  <div class="container-fluid">
+    <div class="header-body">
+      <!-- Card stats -->
+
+    </div>
+  </div>
+</div>
+<div class="container">
+  <form [formGroup]="todoFormGroup" (ngSubmit)="onSubmit()" class="mt--9">
+  <div class="row justify-content-center">
+    <div class="card col-md-8 mt-2 mr-2">
+      <div class="card-body row">
+        <div class="form-group col-md-6">
+          <label for="name">Post à pourvoir </label>
+          <input type="text" class="form-control form-control-alternative  " formControlName="name" placeholder="Post à Pourvoir">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="link">Lien</label>
+          <input type="text" class="form-control form-control-alternative " formControlName="link" placeholder="Liens">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="societe">Societé</label>
+        <input type="text" class="form-control form-control-alternative " formControlName="societe" placeholder="Société">
+      </div>
+       <div class="form-group col-md-6" [formGroup]="AddressFormGroup">
+        <label for="address">Adresse</label>
+        <input ngx-google-places-autocomplete class="form-control form-control-alternative" [options]='options' #placesRef="ngx-places"
+          formControlName="address" (onAddressChange)="handleAddressChange($event)" />
+      </div>
+       <div class="form-group col-md-6">
+        <label for="tel">Téléphone</label>
+        <input type="text" class="form-control form-control-alternative " formControlName="tel" placeholder="Téléphone">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="email">Email</label>
+        <input type="text" class="form-control form-control-alternative " formControlName="email" placeholder="Email">
+      </div>
+
+
+      <div class="form-group col-md-12">
+        <label for="descriptionE">Description</label>
+        <textarea class="form-control form-control-alternative " formControlName="descriptionE" placeholder="Déscription"></textarea>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="competence">Competence</label>
+        <textarea class="form-control form-control-alternative " formControlName="competence" placeholder="Competence"></textarea>
+      </div>
+      <div class="form-group col-md-12">
+        <label for="tache">Tache</label>
+        <textarea class="form-control form-control-alternative " formControlName="tache" placeholder="Tache"></textarea>
+      </div>
+
+
+      <div class="form-group col-md-6">
+        <label for="priority">priority</label>
+        <input type="number" class="form-control form-control-alternative" formControlName="priority" placeholder="priority">
+      </div>
+
+
+    </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mt-3 mb-3">
+    <button class="btn btn-danger mr-2"[disabled]="todoFormGroup.invalid" type="submit">
+      Sauvegarder
+    </button>
+    <button type="button" class="btn btn-secondary mr-2" routerLink="/dashboard" routerLinkActive=”active”>
+      Retour
+    </button>
+
+
+  </div>
+  <div>
+  </div>
+</form>
+</div>
+

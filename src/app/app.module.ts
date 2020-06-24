@@ -1,60 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { MatToolbarModule, MatIconModule, MatTableModule, MatButtonModule, MatSlideToggleModule } from '@angular/material';
-import { ListComponent } from './list/list.component';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { TodoService } from './services/todo.service';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FiltrerPipe } from './pipe/filtrer.pipe';
-import { CardComponent } from './list/card/card.component';
-import { AddCandidatureFormComponent } from './list/add-candidature-form/add-candidature-form.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { AuthGardService } from './services/auth-gard.service';
-import { AuthService } from './services/auth.service';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import {AgmCoreModule} from '@agm/core';
+import { RouterModule } from '@angular/router';
 import { GooglePlaceModule } from "ngx-google-places-autocomplete";
-const route: Routes = [
-  { path: 'auth/signIn', component: SignInComponent },
-  { path: 'auth/signUp', component:SignUpComponent },
-  { path: 'list', canActivate: [AuthGardService], component: ListComponent },
-  { path: 'add', canActivate: [AuthGardService], component: AddCandidatureFormComponent },
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: '**', redirectTo: 'list' }
-];
+import { AppComponent } from './app.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
+import { TodoService } from './pages/services/todo.service';
+import { AuthGardService } from './pages/services/auth-gard.service';
+
 @NgModule({
+  imports: [
+    BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    NgbModule,
+    RouterModule,
+    GooglePlaceModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
-    ListComponent,
-    FiltrerPipe,
-    CardComponent,
-    AddCandidatureFormComponent,
-    SignInComponent,
-    SignUpComponent
+    AdminLayoutComponent
   ],
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    GooglePlaceModule,
-    RouterModule.forRoot(route),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCtU_gREM0dlzPhS_9a41F2FmXBK09y7Z4'
-    }),
-    HttpClientModule, MatSlideToggleModule
-
-  ],
-  providers: [TodoService, AuthGardService, AuthService],
+  providers: [TodoService,TodoService,AuthGardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
