@@ -65,7 +65,7 @@
               <span *ngIf="passwordCtrl.hasError('required')"> Le mot de passe doit être renseigné</span>
             </div>
             </div>
-
+            {{errorMessage}}
             <div class="text-center">
               <button type="submit" class="btn btn-primary my-4" [disabled]="signInForm.invalid"> Se connecter</button>
             </div>
