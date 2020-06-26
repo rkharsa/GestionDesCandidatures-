@@ -16,7 +16,7 @@ import { AuthService } from '../../pages/services/auth.service';
 export class NavbarComponent implements OnInit {
 
   isAuth: boolean;
-  isCollapsed: boolean;
+  isCollapsed: boolean=true;
 
   constructor(location: Location,  private element: ElementRef,
     private router: Router,private authGuardService:AuthGardService,private authService:AuthService) {
