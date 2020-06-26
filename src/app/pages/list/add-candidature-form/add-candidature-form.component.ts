@@ -45,9 +45,9 @@ export class AddCandidatureFormComponent implements OnInit {
       email:['',Validators.required],
       link:['',Validators.required],
       tel:['',Validators.required],
-      response:['',Validators.required],
+      response:['rien',Validators.required],
       dateCreated:[this.myDate.toString(),Validators.required],
-      done:["0",Validators.required],
+      done:[0,Validators.required],
       address:this.AddressFormGroup
     });
   }
