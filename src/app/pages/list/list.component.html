@@ -3,7 +3,7 @@
     <div class="header-body">
       <!-- Card stats -->
       <div class="row justify-content-center">
-        <div class=" card  col-9 col-md-6 h-100 shadow-sm d-inline p-2  ">
+        <div class=" card  col-9 col-md-6 h-100 shadow-sm d-inline p-2 mt-sm-2 mt-md-5 ">
           <form [formGroup]="formGroupSearch" class="col-12 col-md-12   form-inline">
             <a class="material-icons mr-3 text-primary  text-red  d-none d-md-flex  " (click)="changeMapState()" style="cursor: pointer;"> <i class="ni ni-map-big"></i></a>
             <input formControlName="search" class="form-control form-control-alternative  col-9 col-md-10  m-0" type="search" placeholder="Recherche par Titre">
@@ -16,15 +16,15 @@
     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--4">
 
-  <agm-map *ngIf="mapActivate" [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-4 float-left mt-2 card p-1 d-none d-md-flex" >
+  <agm-map style="z-index:100" *ngIf="mapActivate" [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-4 float-left mt-2 card p-1 d-none d-md-flex" >
     <div *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let index=i">
 
       <agm-marker  [label]="index"  [latitude]="todo.address.lat" [longitude]="todo.address.lng">
           <agm-info-window [disableAutoPan]="true">
               {{todo.name}}<br />
-              <a style="cursor:pointer;" >Voir la candidature</a>
+              <a style="cursor:pointer;" (click)="initId(todo.id)" >Voir la candidature</a>
           </agm-info-window>
       </agm-marker>
   </div>
@@ -33,7 +33,7 @@
     <div [ngClass]="{'d-flex' : premierClick===false ,
    'flex-wrap' : premierClick===false ,
    'justify-content-center' : premierClick===false,
-   'col-md-4 ':premierClick===true ,
+   'col-md-5 ':premierClick===true ,
    'col-md-12 ':mapActivate,
   'col-12':true}">
 
@@ -54,7 +54,7 @@
         <img src="../../assets/img/gif/spinner.gif">
       </div>
     </div>
-    <div *ngIf="premierClick" class="col-md-8  mt-2  " [ngClass]="{'col-md-8': premierClick &&!mapActivate,'col-md-12': premierClick && mapActivate,'mt-2': true}">
+    <div *ngIf="premierClick" class=" mt-2  " [ngClass]="{'col-md-7': premierClick &&!mapActivate,'col-md-12': premierClick && mapActivate,'mt-2': true}">
       <form (ngSubmit)="modificationSubmit(G,data().id)" #G="ngForm" class="col-md-12 ">
         <div class="card col-md-12  shadow-lg">
           <div class="card-body">
