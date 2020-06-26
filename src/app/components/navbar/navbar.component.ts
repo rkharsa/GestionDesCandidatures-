@@ -14,19 +14,24 @@ import { AuthService } from '../../pages/services/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  public focus;
-  public listTitles: any[];
-  public location: Location;
+
   isAuth: boolean;
+  isCollapsed: boolean;
 
   constructor(location: Location,  private element: ElementRef,
     private router: Router,private authGuardService:AuthGardService,private authService:AuthService) {
-    this.location = location;
+
 
   }
 
   ngOnInit() {
-    this.listTitles = ROUTES.filter(listTitle => listTitle);
+    var html = document.getElementsByTagName("html")[0];
+    html.classList.add("auth-layout");
+    var body = document.getElementsByTagName("body")[0];
+    body.classList.add("bg-default");
+    this.router.events.subscribe((event) => {
+      this.isCollapsed = true;
+   });
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuth = true;
@@ -40,18 +45,12 @@ export class NavbarComponent implements OnInit {
   signOut() {
     this.authService.signOutUser();
   }
-  getTitle(){
-    var titlee = this.location.prepareExternalUrl(this.location.path());
-    if(titlee.charAt(0) === '#'){
-        titlee = titlee.slice( 1 );
-    }
 
-    for(var item = 0; item < this.listTitles.length; item++){
-        if(this.listTitles[item].path === titlee){
-            return this.listTitles[item].title;
-        }
-    }
-    return titlee;
+  ngOnDestroy() {
+    var html = document.getElementsByTagName("html")[0];
+    html.classList.remove("auth-layout");
+    var body = document.getElementsByTagName("body")[0];
+    body.classList.remove("bg-default");
   }
 
 
