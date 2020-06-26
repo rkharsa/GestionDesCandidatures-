@@ -11,9 +11,5 @@
   <p class="card-text " >{{todo.descriptionE}}</p>
   <a class="card-link" href="{{todo.link}}" routerLinkActive="router-link-active"><i class="material-icons">link</i></a>
 
-  <div class="float-right" (click)="changeState()"><i class="material-icons "
-      [ngClass]="{'text-success': todo.done==2,'text-danger':todo.done==3,'text-warning':todo.done==1,'text-primary':todo.done==0}" style="cursor: pointer;">
-      lens
-    </i></div>
-</div>
+  <div class="float-right" (click)="changeState()" [ngClass]="{'text-success': todo.done==2,'text-danger':todo.done==3,'text-warning':todo.done==1,'text-primary':todo.done==0}" style="cursor: pointer;">{{getEtat(todo.done)}}</div>
 

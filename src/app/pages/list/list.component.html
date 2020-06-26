@@ -1,7 +1,6 @@
 <div class="header bg-gradient-danger py-7 py-lg-6 ">
   <div class="container-fluid">
     <div class="header-body">
-      <!-- Card stats -->
       <div class="row justify-content-center">
         <div class=" card  col-9 col-md-6 h-100 shadow-sm d-inline p-2 mt-sm-2 mt-md-5 ">
           <form [formGroup]="formGroupSearch" class="col-12 col-md-12   form-inline">
@@ -18,34 +17,23 @@
 </div>
 <div class="container-fluid mt--4">
 
-  <agm-map style="z-index:100" *ngIf="mapActivate" [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-4 float-left mt-2 card p-1 d-none d-md-flex" >
-    <div *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let index=i">
 
-      <agm-marker  [label]="index"  [latitude]="todo.address.lat" [longitude]="todo.address.lng">
-          <agm-info-window [disableAutoPan]="true">
-              {{todo.name}}<br />
-              <a style="cursor:pointer;" (click)="initId(todo.id)" >Voir la candidature</a>
-          </agm-info-window>
-      </agm-marker>
-  </div>
-  </agm-map>
   <div class="row justify-content-md-center ">
     <div [ngClass]="{'d-flex' : premierClick===false ,
    'flex-wrap' : premierClick===false ,
    'justify-content-center' : premierClick===false,
-   'col-md-5 ':premierClick===true ,
-   'col-md-12 ':mapActivate,
+   'col-md-5 ':premierClick===true,
   'col-12':true}">
 
       <!--Si on veut en mettre 3 sur la mm ligne sans centrer il faudra mettre col-md-12 dans app card-->
-      <ng-template [ngIf]="(mapActivate && !premierClick) || (!premierClick|| premierClick && !mapActivate) "  >
+
         <app-card class="card  mt-2 shadow-sm " [ngClass]="{'col-md-4' : premierClick===false ,
         'mr-md-2 ' : premierClick===false  ,
         'ml-md-2 ' : true,
-        'col-md-12' : premierClick===true || mapActivate
+        'col-md-12' : premierClick===true
         }" *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"
          [todo]="todo"></app-card>
-      </ng-template>
+
 
 
     </div>
@@ -54,10 +42,11 @@
         <img src="../../assets/img/gif/spinner.gif">
       </div>
     </div>
-    <div *ngIf="premierClick" class=" mt-2  " [ngClass]="{'col-md-7': premierClick &&!mapActivate,'col-md-12': premierClick && mapActivate,'mt-2': true}">
+    <div *ngIf="premierClick" class=" mt-2  " [ngClass]="{'col-md-7': premierClick  ,'mt-2': true}">
       <form (ngSubmit)="modificationSubmit(G,data().id)" #G="ngForm" class="col-md-12 ">
         <div class="card col-md-12  shadow-lg">
           <div class="card-body">
+
             <div class="float-right">
               <div (click)="fermerInfo()" class="material-icons" style="cursor: pointer;">close</div><br>
               <div (click)="modificationClick()" class="material-icons pointer" *ngIf="modification==false" style="cursor: pointer;">edit</div>
@@ -72,22 +61,25 @@
             <h4 class="card-title h2">
               <div *ngIf="modification==true"><input name="name" class="form-control form-control-alternative col-md-10 " placeholder="L'annonce"
                   ngModel="{{data().name}}"></div>
-              <div *ngIf="modification==false">{{data().name}}</div>
+              <div *ngIf="modification==false"><a href="{{data().link}}">{{data().name}}</a></div>
             </h4>
 
             <h6 class="card-subtitle mb-2 text-muted">
               <div *ngIf="modification==true"><input name="societe" class="form-control form-control-alternative col-md-10" placeholder="Société"
                   ngModel="{{data().societe}}"></div>
-              <div *ngIf="modification==false" class="h4">{{data().societe}} / <i (click)="changeState(data().done,data().id)"
-                  class="material-icons "
- style="cursor: pointer;"                   [ngClass]="{'text-success': data().done==2,'text-danger':data().done==3,'text-warning':data().done==1,'text-primary':data().done==0}">
-                  lens
-                </i>{{getEtat(data().done)}} </div>
-
-
-
+              <div *ngIf="modification==false" class="h4">{{data().societe}} /<span  [ngClass]="{'text-success': data().done==2,'text-danger':data().done==3,'text-warning':data().done==1,'text-primary':data().done==0}" (click)="changeState(data().done,data().id)" style="cursor: pointer;">{{getEtat(data().done)}}</span>  </div>
             </h6>
+            <agm-map style="z-index:100" *ngIf="modification==false"  [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-12 mt-2 card p-1 d-none d-md-flex " >
+              <div *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let index=i">
 
+                <agm-marker  [label]="index"  [latitude]="todo.address.lat" [longitude]="todo.address.lng">
+                    <agm-info-window [disableAutoPan]="true">
+                        {{todo.name}}<br />
+                        <a style="cursor:pointer;" (click)="initId(todo.id)" >Voir la candidature</a>
+                    </agm-info-window>
+                </agm-marker>
+            </div>
+            </agm-map>
             <div class="card-text">
 
               <br>
@@ -128,12 +120,14 @@
             </div>
             <br>
             <br>
-            <a class="card-link mt-3" href="{{data().link}}" routerLinkActive="router-link-active">Card link</a>
+
             <button *ngIf="modification==true" class="btn btn-block btn-primary" type="submit">Mettre à jour</button>
           </div>
+
         </div>
 
       </form>
+
     </div>
 
   </div>

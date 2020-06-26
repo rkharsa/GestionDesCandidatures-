@@ -21,6 +21,9 @@ export class CardComponent implements OnInit {
   changeState() {
     this.todoService.changeState(this.todo.done, this.todo.id);
   }
+  getEtat(etat: number) {
+    return this.todoService.getEtat(etat);
+  }
 
 }
 
