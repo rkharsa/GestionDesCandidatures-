@@ -69,7 +69,7 @@
                   ngModel="{{data().societe}}"></div>
               <div *ngIf="modification==false" class="h4">{{data().societe}} /<span  [ngClass]="{'text-success': data().done==2,'text-danger':data().done==3,'text-warning':data().done==1,'text-primary':data().done==0}" (click)="changeState(data().done,data().id)" style="cursor: pointer;">{{getEtat(data().done)}}</span>  </div>
             </h6>
-            <agm-map style="z-index:100" *ngIf="modification==false"  [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-12 mt-2 card p-1 d-none d-md-flex " >
+            <!-- <agm-map style="z-index:100" *ngIf="modification==false"  [zoom]="12" [latitude]="48.866667"  [longitude]="2.333333"class="col-md-12 mt-2 card p-1 d-none d-md-flex " >
               <div *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let index=i">
 
                 <agm-marker  [label]="index"  [latitude]="todo.address.lat" [longitude]="todo.address.lng">
@@ -79,7 +79,7 @@
                     </agm-info-window>
                 </agm-marker>
             </div>
-            </agm-map>
+            </agm-map> -->
             <div class="card-text">
 
               <br>
