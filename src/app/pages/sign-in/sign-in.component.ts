@@ -35,7 +35,6 @@ export class SignInComponent implements OnInit {
       ()=>{
         this.router.navigate(["/dashboard"]);
       },(e)=>{
-        console.log(e);
         this.errorMessage=e;
       }
     );

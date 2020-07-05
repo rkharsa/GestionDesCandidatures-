@@ -29,22 +29,22 @@ export class AddCandidatureFormComponent implements OnInit {
   }
   initForm(){
     this.AddressFormGroup=this.formBuilder.group({
-      address:['',Validators.required],
-      lat:['',Validators.required],
-      lng:['',Validators.required]
+      address:[''],
+      lat:[''],
+      lng:['']
 
     });
     this.todoFormGroup=this.formBuilder.group({
       id:[this.todoService.todos.length,Validators.required],
       name:['',Validators.required],
-      societe:['',Validators.required],
-      descriptionE:['',Validators.required],
-      competence:['',Validators.required],
-      tache:['',Validators.required],
-      priority:[0,Validators.required],
-      email:['',Validators.required],
-      link:['',Validators.required],
-      tel:['',Validators.required],
+      societe:[''],
+      descriptionE:[''],
+      competence:[''],
+      tache:[''],
+      priority:[0],
+      email:[''],
+      link:[''],
+      tel:[''],
       response:['rien',Validators.required],
       dateCreated:[this.myDate.toString(),Validators.required],
       done:[0,Validators.required],

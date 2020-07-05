@@ -22,15 +22,15 @@
    'flex-wrap' : premierClick===false ,
    'justify-content-center' : premierClick===false,
    'col-md-5 ':premierClick===true,
-  'col-12':true,
-  'd-none d-md-flex':premierClick}">
+  'col-12':true}">
 
       <!--Si on veut en mettre 3 sur la mm ligne sans centrer il faudra mettre col-md-12 dans app card-->
 
         <app-card class="card  mt-2 shadow-sm " [ngClass]="{'col-md-4' : premierClick===false ,
         'mr-md-2 ' : premierClick===false  ,
         'ml-md-2 ' : true,
-        'col-md-12' : premierClick===true
+        'col-md-12' : premierClick===true,
+        'd-none d-md-flex':premierClick===true
         }" *ngFor="let todo of todos| filtrer:this.formGroupSearch.get('search').value;let i= index" (click)="initId(i)"
          [todo]="todo"></app-card>
 
